@@ -1,0 +1,2 @@
+    "included" : true,
+    "pathFromInclude" : "{{ File.Path }}"

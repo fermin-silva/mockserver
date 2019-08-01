@@ -1,0 +1,32 @@
+---
+match = [
+	"/test/[0-9]+/all"
+]
+
+template = true
+
+[Data]
+names = [
+    "Juan",
+    "Pedro",
+    "Miguel"
+]
+
+[Headers]
+Content-Type = "Application/json"
+Whatever = "Tu Morro"
+
+---
+{
+    "hello" : "{{ Request.Query("name") }}",
+    "fermin" : "{{ Request.Query("algo") }}",
+    "path" : "{{ File.Path }}",
+    "cfg" : "{{ Config.Get("title") }}",
+    "file_names" : [
+        {% for name in File.Get("Data").names %}
+            "{{name}}"{% if not forloop.Last %},{% endif %}
+        {% endfor %}
+    ],
+    "random_file_name" : "{{ File.Get("Data").names | random }}",
+{% include "./include.json" %}
+}
