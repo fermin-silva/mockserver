@@ -24,7 +24,7 @@ func NewParsedFile(filepath, content string, fileconfig FileConfig, config *Conf
 }
 
 func (f *ParsedFile) Matches(url string) bool {
-	return true
+	return f.fileconfig.Matches(url)
 }
 
 func (f *ParsedFile) GetHeaders() map[string]string {

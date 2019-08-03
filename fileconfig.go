@@ -51,6 +51,11 @@ func (f *FileConfig) UseTemplate() bool {
 }
 
 func (f *FileConfig) Matches(url string) bool {
+	//always true unless there are configured regexes
+	if len(f.Match) == 0 {
+		return true
+	}
+
 	//TODO cache regex compilation
 	for _, str := range f.Match {
 		rx, _ := regexp.Compile(str)

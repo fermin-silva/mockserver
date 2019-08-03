@@ -7,6 +7,8 @@ import (
 )
 
 func ParseFile(filepath string, appconfig *Config) (*ParsedFile, error) {
+	fmt.Printf("Parsing file %s\n", filepath)
+
 	bs, err := ioutil.ReadFile(filepath)
 
 	if err != nil {

@@ -15,7 +15,7 @@ func serve(servingDir string, c *gin.Context, config *Config) {
 	finalPath := path.Join(servingDir, c.Request.URL.Path)
 
 	//TODO this could have different backends: database, file, s3, etc
-	parsedfile, err := resolveFile(servingDir, finalPath, config)
+	parsedfile, err := resolveFile(servingDir, finalPath, c.Request.URL.Path, config)
 
 	if err != nil {
 		c.AbortWithError(500, err)

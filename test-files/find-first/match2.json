@@ -1,0 +1,5 @@
+---
+match = [
+    "/find-first/match(/)?"
+]
+---
