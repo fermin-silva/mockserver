@@ -18,7 +18,7 @@ Content-Type = "Application/json"
 Whatever = "Tu Morro"
 `
 
-	cfg, err := NewFileConfig(configContent)
+	cfg, err := NewFileConfig("filepath", configContent)
 
 	assertEqual(t, cfg.Template, true, "Template should be true")
 

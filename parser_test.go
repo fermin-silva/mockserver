@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -25,13 +26,13 @@ Whatever = "Tu Morro"`
 
 	config, content, err := parse(content)
 
-	assertEqual(t, config, configContent, "Config unexpected")
 	fmt.Println("Config:")
 	fmt.Println(config)
+	assertEqual(t, strings.TrimSpace(config), strings.TrimSpace(configContent), "Config unexpected")
 
-	assertEqual(t, content, bodyContent, "Body content unexpected")
 	fmt.Println("Content:")
 	fmt.Println(content)
+	assertEqual(t, strings.TrimSpace(content), strings.TrimSpace(bodyContent), "Body content unexpected")
 
 	if err != nil {
 		t.Errorf("Parsing got error %s", err)
