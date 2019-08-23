@@ -21,14 +21,16 @@ func ParseFile(filepath string, appconfig *Config) (*ParsedFile, error) {
 		return nil, fmt.Errorf("error while parsing file %s: %s", filepath, err)
 	}
 
-	var fileconfig FileConfig
+	var fileconfig *FileConfig
 
 	if config != "" {
-		fileconfig, err = NewFileConfig(filepath, config)
+		fcfg, err := NewFileConfig(filepath, config)
 
 		if err != nil {
 			return nil, fmt.Errorf("error while parsing file config %s. \nContent: %s", err, config)
 		}
+
+		fileconfig = &fcfg
 	}
 
 	return NewParsedFile(filepath, content, fileconfig, appconfig), nil

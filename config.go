@@ -10,6 +10,8 @@ type Config struct {
 	genericCfg map[string]interface{} `toml:"-"`
 }
 
+var DefaultConfig = Config{Port: 8080}
+
 func ParseConfig(file string) (*Config, error) {
 	cfg := Config{}
 

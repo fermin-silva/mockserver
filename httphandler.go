@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"path"
 )
@@ -18,8 +19,17 @@ func serve(servingDir string, c *gin.Context, config *Config) {
 	parsedfile, err := resolveFile(servingDir, finalPath, c.Request.URL.Path, config)
 
 	if err != nil {
+		fmt.Println("error", err)
 		c.AbortWithError(500, err)
+		return
 	}
+
+	if parsedfile == nil {
+		c.AbortWithError(500, fmt.Errorf("file resolver returned nil for path %s", finalPath))
+		return
+	}
+
+	fmt.Println("Final file returned by resolveFile is", parsedfile.FilePath)
 
 	for k, v := range parsedfile.GetHeaders() {
 		c.Header(k, v)

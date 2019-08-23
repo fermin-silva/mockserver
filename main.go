@@ -11,7 +11,7 @@ import (
 
 func main() {
 	port := pflag.IntP("port", "p", 8080, "Http listening port")
-	confFile := pflag.StringP("conf", "c", "conf.toml", "Service configuration file")
+	confFile := pflag.StringP("conf", "c", "", "Service configuration file")
 	pflag.Parse()
 
 	args := pflag.Args()
@@ -24,11 +24,18 @@ func main() {
 
 	//TODO validate servingDir
 
-	conf, err := ParseConfig(*confFile)
+	var conf *Config
+	var err error
 
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "error reading config file: %s\n", err)
-		os.Exit(1)
+	if confFile == nil || *confFile == "" {
+		conf = &DefaultConfig
+	} else {
+		conf, err = ParseConfig(*confFile)
+
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error reading config file: %s\n", err)
+			os.Exit(1)
+		}
 	}
 
 	pongo2.DefaultLoader.SetBaseDir(servingDir)
