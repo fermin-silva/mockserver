@@ -2,35 +2,43 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
-	"strings"
 )
 
 //TODO return file object after parsing with config, template, etc
-func resolveFile(servingdir, filepath, url string, config *Config) (*ParsedFile, error) {
+func resolveFile(servingdir, finalpath, url string, config *Config) (*ParsedFile, error) {
 	//TODO if path is /user/create there could be a create.json file, so use "findFirst" also for the base case
 	//TODO what is the precedence? index.*, exact match? directory? etc
 
-	info, err := os.Stat(filepath)
+	info, err := os.Stat(finalpath)
 
 	if os.IsPermission(err) {
 		return findFirst(servingdir, "403", url, config)
 	}
 
 	if os.IsNotExist(err) {
-		fmt.Printf("%s does not exist\n", filepath)
+		fmt.Printf("%s does not exist\n", finalpath)
 
-		parsed, err := findFirstGlob(filepath, url, config)
+		parsed, err := findFirstGlob(finalpath, url, config)
 
 		if err == nil && parsed != nil {
 			return parsed, nil
 		}
 
 		//try 404 inside the requested path
-		parsed, err = findFirst(filepath, "404", url, config)
+		//ex: /users/john --> look in /users/john/404
+		parsed, err = findFirst(finalpath, "404", url, config)
+
+		if err == nil && parsed != nil {
+			return parsed, nil
+		}
+
+		//remove last url element and look for 404 in there
+		//ex: /users/john does not exist, so look for /users/404 and only then in /404
+		parentpath := filepath.Dir(finalpath)
+
+		parsed, err = findFirst(parentpath, "404", url, config)
 
 		if err == nil && parsed != nil {
 			return parsed, nil
@@ -42,8 +50,9 @@ func resolveFile(servingdir, filepath, url string, config *Config) (*ParsedFile,
 
 	if info.IsDir() {
 		findFirst(servingdir, "index", url, config)
+		//TODO if no index, return 404 inside there?
 	} else {
-		return ParseFile(filepath, config)
+		return ParseFile(finalpath, config) //TODO should we do a url matching at this point if its an exact match?
 	}
 
 	//TODO throw error at this point
@@ -72,6 +81,7 @@ func findFirstGlob(findpath, url string, config *Config) (*ParsedFile, error) {
 			continue
 		}
 
+		//TODO this probably needs caching, for each request we are re-parsing everything
 		if parsed, err := ParseFile(name, config); err != nil {
 			return nil, err
 		} else if parsed.Matches(url) {
@@ -86,32 +96,4 @@ func findFirst(dir, name, url string, config *Config) (*ParsedFile, error) {
 	fmt.Printf("Finding first file named %s in dir %s\n", name, dir)
 
 	return findFirstGlob(filepath.Join(dir, name), url, config)
-
-	//TODO implement return first file name that matches name (and not the extension)
-	//TODO or do here file url matching based on file config 'matches' ?
-	files, err := ioutil.ReadDir(dir)
-
-	if err != nil {
-		return nil, err
-	}
-
-	for _, f := range files {
-		if f.IsDir() {
-			continue
-		}
-
-		fmt.Printf("Trying to find first with file %s\n", f.Name())
-
-		//TODO caching files? regex compilation? etc?
-
-		if strings.HasPrefix(f.Name(), name) {
-			if parsed, err := ParseFile(path.Join(dir, f.Name()), config); err != nil {
-				return nil, err
-			} else if parsed.Matches(url) {
-				return parsed, nil
-			}
-		}
-	}
-
-	return nil, nil
 }
