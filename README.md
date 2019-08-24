@@ -66,13 +66,44 @@ incoming URLs. When its hitted, it looks for a file that matches the URL within
 the serving directory, parses the file, renders it as a template (if applicable)
 and returns it as a response, along with any custom header you specify.
 
-So the two main concepts to understand are how the URL matching works and how is
-the file rendered as a template. Both of them depend on the `Front Matter` of each
-of your files. All of these concepts are explained below:
+So the two main concepts to understand are how the URL matching works and how
+the file is rendered as a template. Both of them depend on the `Front Matter` of
+each of your files. All of these concepts are explained below:
 
 ### Front Matter of files
 
-COMING SOON
+The Front Matter of your files allows you to customize the response rendering,
+the file matching and much more. It's inspired in [Jekyll's YAML Front Matter](https://jekyllrb.com/docs/front-matter/), but the format and variables are different.
+
+The front matter must be the first thing in the file and must take the form of
+a valid TOML (and not YAML like Jekyll) set between triple-dashed lines. Here is
+a basic example:
+
+```
+---
+template = true
+
+match = [
+	"/index.html",
+    "/index.php"
+]
+
+[Headers]
+Content-Type = "Application/json"
+Whatever = "You Like"
+---
+... rest of your file goes here ...
+```
+
+Between these triple-dashed lines, you can set predefined variables or even
+create custom ones of your own. These variables will then be available for you
+to access in the template rendering, and customize the URL matching. See the
+full reference of front matter variables [HERE]().
+
+If in doubt of how to write a valid TOML document you can check the [official
+language specs](https://github.com/toml-lang/toml) or the specific [TOML
+library](https://github.com/BurntSushi/toml) we use.
+
 
 ### URL to File Matching
 
@@ -114,7 +145,50 @@ json, whatever), as nothing is really enforced.
 
 ### Template Rendering
 
-COMING SOON
+Template rendering helps you to return a dynamic responses, based on query
+parameters, configuration files, etc. You might also want to use templates to
+simplify or modularize files, so they are easier to mantain.
+
+We support the [Django template language](https://docs.djangoproject.com/en/2.2/ref/templates/language/) through the go library [pongo2](https://github.com/flosch/pongo2).
+You shouldn't need to see much of pongo2, unless you find a Django feature that
+is not working as expected.
+
+In order to enable template processing, you need to add `template = true` to the
+Front Matter of a file and then use normal Django tags. For example with an
+`index.json` file like this:
+
+```json
+---
+template = true
+
+[MyCustomData]
+names = [ "Juan", "Pedro", "Miguel" ]
+---
+{
+    "hello" : "{{ Request.Query("name") }}",
+    "other_names" : [
+        {% for name in File.Get("MyCustomData").names %}
+            "{{name}}"{% if not forloop.Last %},{% endif %}
+        {% endfor %}
+    ]
+}
+```
+
+If we do `curl localhost:8080/?name=john` we get:
+
+```json
+{
+    "hello" : "john",
+    "other_names" : [
+            "Juan",
+            "Pedro",
+            "Miguel"
+    ]
+}
+```
+
+This is just a simple example of templating a file with custom data, but you can
+use much more complex logic, imports, ifs, etc. See the full reference of template variables and examples [HERE]().
 
 ## Configuration
 

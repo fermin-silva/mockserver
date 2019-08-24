@@ -56,7 +56,7 @@ func (f *ParsedFile) String(rd RequestData) (string, error) {
 
 	ctx := pongo2.Context{}
 	ctx["Request"] = rd
-	ctx["Config"] = *f.config
+	ctx["Config"] = f.config
 	ctx["File"] = f.fileconfig
 
 	//TODO add random object to context, to generate strings, numbers, bools, etc
