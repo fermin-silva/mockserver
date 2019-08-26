@@ -35,27 +35,27 @@ hard to catch bug by returning specific responses from the backend.
 1. Create folder where we will store our source json files (or any type really),
 called the serving directory
 ```sh
-$ mkdir sources
-$ mkdir sources/users
+mkdir sources
+mkdir sources/users
 ```
 
 2. Create two mocked server responses
 ```sh
-$ echo '{ "message" : "hello world" }' > sources/index.json
-$ echo '{ "user" : "Martin Scorsese" }' > sources/users/1.json
+echo '{ "message" : "hello world" }' > sources/index.json
+echo '{ "user" : "Martin Scorsese" }' > sources/users/1.json
 ```
 
 3. Start the `mockserver` poiting to the `sources` directory
 ```sh
-$ ./mockserver sources
+./mockserver sources
 ```
 
 4. Hit the HTTP server from your browser or from curl and see the response
 ```sh
-$ curl "localhost:8080"
+curl "localhost:8080"
 { "message" : "hello world" }
 
-$ curl "localhost:8080/users/1"
+curl "localhost:8080/users/1"
 { "user" : "Martin Scorsese" }
 ```
 
@@ -204,7 +204,33 @@ COMING SOON
 
 ### How to compile from source
 
-COMING SOON
+1. Install go: https://golang.org/doc/install#install (version 1.11.2 is being
+used to develop the project, although older versions might work)
+
+2. Clone the repository into the correct folder of your $GOPATH, normally:
+```sh
+git clone https://github.com/fermin-silva/mockserver $GOPATH/src/github.com/fermin-silva/mockserver
+```
+
+3. Install the Glide dependency management tool: https://glide.sh
+
+4. Install the dependencies of the project into the local `vendor` project:
+```sh
+cd $GOPATH/src/github.com/fermin-silva/mockserver
+glide install
+```
+
+5. Compile the project:
+```sh
+go build
+```
+
+This will leave an executable file `mockserver` (or `mockserver.exe` if you are
+on Windows). From there you can run it just like the downloaded version.
+
+If you need to cross compile the code (for ex. compiling on Mac but want to run
+`mockserver` in your linux server), please read this article on how
+[How To Build Go Executables for Multiple Platforms](https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04)
 
 ### How to contribute
 
