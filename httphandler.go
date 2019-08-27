@@ -35,6 +35,8 @@ func serve(servingDir string, c *gin.Context, config *Config) {
 		c.Header(k, v)
 	}
 
+	c.Header("Matched-File", parsedfile.FilePath)
+
 	content, err := parsedfile.String(c)
 
 	if err != nil {

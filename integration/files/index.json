@@ -1,0 +1,4 @@
+{
+    "file" : "index.json",
+    "path" : "{{ File.Path }}"
+}

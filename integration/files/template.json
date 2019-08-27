@@ -1,0 +1,7 @@
+---
+template = true
+---
+{
+    "file" : "template.json",
+    "path" : "{{ File.Path }}"
+}

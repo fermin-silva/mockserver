@@ -59,6 +59,8 @@ func (f *ParsedFile) String(rd RequestData) (string, error) {
 	ctx["Config"] = f.config
 	ctx["File"] = f.fileconfig
 
+	fmt.Printf("Context for template is %v\n", ctx)
+
 	//TODO add random object to context, to generate strings, numbers, bools, etc
 
 	return tpl.Execute(ctx)

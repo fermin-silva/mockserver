@@ -10,9 +10,13 @@ import (
 )
 
 func main() {
+	run(os.Args[1:])
+}
+
+func run(osargs []string) {
 	port := pflag.IntP("port", "p", 8080, "Http listening port")
 	confFile := pflag.StringP("conf", "c", "", "Service configuration file")
-	pflag.Parse()
+	pflag.CommandLine.Parse(osargs)
 
 	args := pflag.Args()
 	if len(args) == 0 {
