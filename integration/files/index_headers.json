@@ -1,0 +1,12 @@
+---
+template = true
+
+[Headers]
+Content-Type = "Application/json"
+Whatever = "You Want"
+ExtraInt = "1234"
+---
+{
+    "file" : "index_headers.json",
+    "path" : "{{ File.Path }}"
+}

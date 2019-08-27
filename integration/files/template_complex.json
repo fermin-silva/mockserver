@@ -1,0 +1,21 @@
+---
+template = true
+
+[Data]
+names = [
+    "Juan",
+    "Pedro",
+    "Miguel"
+]
+---
+{
+    "file" : "template_complex.json",
+    "path" : "{{ File.Path }}",
+    "names" : [
+        {% for name in File.Get("Data").names %}
+            "{{name}}"{% if not forloop.Last %},{% endif %}
+        {% endfor %}
+    ],
+    "title" : "{{ Config.Get("title") }}",
+    {% include "include.json" %}
+}
