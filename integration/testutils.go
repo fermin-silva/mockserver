@@ -95,3 +95,13 @@ func MapContainsExpected(expected, actual map[string][]string) error {
 
 	return nil
 }
+
+func (e EasyHttpResp) HasMatchedFile(expected string) error {
+	val := e.Headers().Get("Matched-File")
+
+	if expected != val {
+		return fmt.Errorf("Expecting Matched-File Header %s but got %s", expected, val)
+	}
+
+	return nil
+}
