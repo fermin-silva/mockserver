@@ -1,26 +1,65 @@
-# devAid **Jekyll** Theme
+<a href="https://themes.3rdwavemedia.com/bootstrap-templates/startup/devaid-free-bootstrap-theme-for-developers-side-projects/" target="_blank">
+<img src="https://themes.3rdwavemedia.com/wp-content/uploads/2018/07/Free-Bootstrap-Theme-for-Developers-devaid.jpg" alt="devaid theme" style="width: 750px" >
+</a>
 
-<p align="center">
-  <img src="images/devaid_cover.png">
-</p>
+## Theme Details & Demo
 
-[devAid](https://github.com/xriley/devAid-Theme) theme from [Xiaoying Riley](http://xiaoyingriley.com/), adopted to Jekyll
+**Demo:** https://themes.3rdwavemedia.com/bootstrap-templates/startup/devaid-free-bootstrap-theme-for-developers-side-projects/
 
-early stage, pls open issue if you need any updates
+devAid is a free Bootstrap theme designed to **help developers promote their personal projects**. It comes with **4 colour schemes**. The **source LESS files** are included so you can easily make styling customisations.
 
-### Installing
+## Author & License
 
-Install [Jekyll](https://jekyllrb.com/) if you haven't already.
+## Author & License
 
-1. Either clone this repo onto your computer, or download a package (tar or .zip) and un-pack it.
-2. From `/devaid-jekyll-theme`, or the site's root directory run `jekyll serve`.
+This Bootstrap template is made by UX/UI designer [Xiaoying Riley](https://twitter.com/3rdwave_themes) for developers and is 100% FREE as long as you **keep the footer attribution link**. You do not have the rights to resell, sublicense or redistribute (even for free) the template on its own or as a separate attachment from any of your work.
 
-A Jekyll server will be run locally so that you can see your site.
+If you'd like to **use the template without the footer attribution link**, you can [buy the **commercial license** via our website](https://themes.3rdwavemedia.com/bootstrap-templates/startup/devaid-free-bootstrap-theme-for-developers-side-projects/)
 
-### Download
+#### Follow Xiaoying
 
-[Download Tar Package](https://github.com/kevit/devaid-jekyll-theme/blob/master/archive.tar.bz2), or [get .zip package](https://github.com/thundergolfer/devaid-jekyll-theme/archive/master.zip)
+[Twitter](https://twitter.com/3rdwave_themes)
 
-## License
+[Facebook](https://www.facebook.com/3rdwavethemes/)
 
-Please follow the license agreement for your projects https://themes.3rdwavemedia.com/bootstrap-templates/startup/devaid-free-bootstrap-theme-for-developers-side-projects/
+[Dribbble](https://dribbble.com/Xiaoying)
+
+[Medium](https://medium.com/@3rdwave_themes)
+
+[Linkedin](https://uk.linkedin.com/in/xiaoying)
+
+
+## Latest Version
+**v2.0** - 23 July 2018
+
+[Changelog](https://themes.3rdwavemedia.com/bootstrap-templates/startup/devaid-free-bootstrap-theme-for-developers-side-projects/?target=changelog)
+
+## Colour Schemes
+
+#### Colour 1 (theme-1.css)
+<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2014/11/free-bootstrap-theme-for-developer-color-1.jpg" width="300" alt="devaid color 1" />
+
+#### Colour 2 (theme-2.css)
+<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2014/11/free-bootstrap-theme-for-developer-color-2.jpg" width="300" alt="devaid color 2" />
+
+#### Colour 3 (theme-3.css)
+<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2014/11/free-bootstrap-theme-for-developer-color-3.jpg" width="300" alt="devaid color 3" />
+
+#### Colour 4 (theme-4.css)
+<img src="http://themes.3rdwavemedia.com/wp-content/uploads/2014/11/free-bootstrap-theme-for-developer-color-4.jpg" width="300" alt="devaid color 4" />
+
+
+## Features
+
+-  Fully Responsive
+-  HTML5 + CSS3
+-  Built on Bootstrap 4
+-  **SCSS** source files included
+-  1000+ FontAwesome icons
+
+
+##Credits
+- [Bootstrap](http://getbootstrap.com/)
+- [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
+- [jQuery](http://jquery.com/)
+- [PrismJS](http://prismjs.com/)
